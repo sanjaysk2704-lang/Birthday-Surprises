@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Prahasini ❤️ | A Magical Surprise</title>
+    <meta name="description" content="A magical 3D interactive romantic birthday celebration website specially created for Prahasini with Shin-chan, music, interactive surprises, and fireworks.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Outfit:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,400;1,700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!--
+        BIRTHDAY SONG
+
+        Place your MP3 file in this same folder and name it:
+
+        birthday-song.mp3
+
+        To replace the song later, simply replace birthday-song.mp3.
+    -->
+    <audio id="birthdayAudio" preload="auto" loop>
+        <source src="birthday-song.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Background Particle & Starfield Canvas -->
+    <canvas id="ambientCanvas"></canvas>
+    <canvas id="confettiCanvas"></canvas>
+    <canvas id="fireworksCanvas"></canvas>
+
+    <!-- Floating Background Hearts Container -->
+    <div id="floatingHeartsContainer" class="floating-hearts-bg" aria-hidden="true"></div>
+
+    <!-- Music Player Controller Bar -->
+    <nav id="musicPlayerBar" class="music-player-bar hidden">
+        <div class="music-disc-wrapper" id="musicDiscBtn" title="Toggle Music">
+            <div class="music-disc" id="musicDisc">
+                <span class="disc-icon">🎵</span>
+            </div>
+            <div class="equalizer-bars" id="equalizer">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+        <div class="music-info">
+            <span class="song-title">Shin-chan's Birthday Song 🎀</span>
+            <span class="song-status" id="musicStatus">Tap to Play</span>
+        </div>
+        <div class="music-controls">
+            <button id="playPauseBtn" class="music-btn" aria-label="Play / Pause Music">
+                <span id="playPauseIcon">▶️</span>
+            </button>
+            <button id="muteBtn" class="music-btn" aria-label="Mute / Unmute">
+                <span id="muteIcon">🔊</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- MAIN EXPERIENCE CONTAINER -->
+    <main id="mainContainer">
+
+        <!-- ==========================================
+             1. OPENING SCREEN - 3D GIFT BOX 🎁
+             ========================================== -->
+        <section id="openingSection" class="experience-section active-section">
+            <div class="opening-glow-circle"></div>
+
+            <div class="opening-content">
+                <div class="shinchan-corner top-left-corner float-anim">
+                    <img src="assets/shinchan-gift.png" alt="Shin-chan with Gift" class="shinchan-img sticker-glow" id="shinchanGiftImg">
+                </div>
+
+                <div class="hero-text-box">
+                    <p class="sparkle-tag">✨ A Magical Day for Someone Special ✨</p>
+                    <h1 class="opening-title">A Special Surprise<br><span class="romantic-gradient-text">For You ❤️</span></h1>
+                </div>
+
+                <!-- 3D Gift Box -->
+                <div class="gift-box-3d-scene" id="giftScene">
+                    <div class="gift-box-3d" id="giftBox3D">
+                        <!-- Box Lid -->
+                        <div class="gift-lid" id="giftLid">
+                            <div class="lid-top">
+                                <div class="ribbon-bow">
+                                    <div class="bow-loop left-loop"></div>
+                                    <div class="bow-loop right-loop"></div>
+                                    <div class="bow-knot"></div>
+                                </div>
+                                <div class="ribbon-cross horizontal"></div>
+                                <div class="ribbon-cross vertical"></div>
+                            </div>
+                            <div class="lid-side lid-front"></div>
+                            <div class="lid-side lid-back"></div>
+                            <div class="lid-side lid-left"></div>
+                            <div class="lid-side lid-right"></div>
+                        </div>
+
+                        <!-- Box Body -->
+                        <div class="box-body" id="boxBody">
+                            <div class="box-face box-front">
+                                <div class="ribbon-strap vertical"></div>
+                            </div>
+                            <div class="box-face box-back">
+                                <div class="ribbon-strap vertical"></div>
+                            </div>
+                            <div class="box-face box-left">
+                                <div class="ribbon-strap vertical"></div>
+                            </div>
+                            <div class="box-face box-right">
+                                <div class="ribbon-strap vertical"></div>
+                            </div>
+                            <div class="box-face box-bottom"></div>
+                            <div class="gift-glow-core" id="giftGlowCore"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="opening-action">
+                    <button id="openGiftBtn" class="glow-pulse-btn" aria-label="Open Birthday Surprise">
+                        <span class="btn-sparkles">✨</span>
+                        <span class="btn-text">Click Here 🎁</span>
+                        <span class="btn-sparkles">✨</span>
+                    </button>
+                    <p class="opening-hint">Tap to unwrap your birthday surprise!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             2. BIRTHDAY CELEBRATION HUB (SCROLLABLE)
+             ========================================== -->
+        <div id="celebrationHub" class="celebration-hub hidden">
+
+            <!-- Section 2: Birthday Introduction ❤️ -->
+            <section id="introSection" class="hub-section intro-section">
+                <div class="decorative-shinchan-badge left-badge float-anim-slow">
+                    <img src="assets/shinchan-birthday.png" alt="Shin-chan Birthday Cheer" class="shinchan-img sticker-glow">
+                </div>
+
+                <div class="decorative-shinchan-badge right-badge float-anim-reverse">
+                    <img src="assets/shinchan-surprise.png" alt="Shin-chan Hearts" class="shinchan-img sticker-glow">
+                </div>
+
+                <div class="section-card glass-card hero-intro-card">
+                    <div class="crown-sparkle">👑 ✨ 💖</div>
+                    <h2 class="birthday-main-title" id="birthdayTitle">
+                        <span class="title-sub">Happiest Birthday</span>
+                        <span class="name-highlight romantic-gradient-text" id="birthdayPersonName">❤️ Prahasini ❤️</span>
+                    </h2>
+                    <p class="intro-subtitle typewriter-effect" id="introSubtitle">
+                        Today is all about celebrating the brightest, sweetest, and most wonderful soul in the world! ✨
+                    </p>
+                    <div class="scroll-indicator">
+                        <span>Scroll down for your surprises</span>
+                        <span class="scroll-arrow">⬇️</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: Animated Birthday Letter 💌 -->
+            <section id="letterSection" class="hub-section letter-section">
+                <div class="section-header">
+                    <span class="badge-pill">💌 Personal Note</span>
+                    <h3 class="section-heading">A Heartfelt Letter for Prahasini</h3>
+                </div>
+
+                <div class="letter-layout">
+                    <!-- Envelope 3D Component -->
+                    <div class="envelope-container" id="envelopeContainer">
+                        <div class="envelope-wrapper" id="envelopeWrapper">
+                            <div class="envelope-back"></div>
+                            
+                            <!-- Letter Content Sheet -->
+                            <div class="letter-sheet" id="letterSheet">
+                                <div class="letter-header">
+                                    <span class="letter-tag">A Special Wish 💖</span>
+                                    <span class="letter-date">For Prahasini</span>
+                                </div>
+                                <div class="letter-body">
+                                    <p id="letterContentText" class="letter-text"></p>
+                                </div>
+                                <div class="letter-footer">
+                                    <span class="letter-sign">With all my love & warmest wishes ❤️</span>
+                                    <span class="shinchan-mini-stamp">🎀 Shin-chan approved</span>
+                                </div>
+                            </div>
+
+                            <div class="envelope-pocket"></div>
+                            <div class="envelope-flap" id="envelopeFlap">
+                                <div class="wax-seal" id="waxSeal">
+                                    <span>❤️</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button id="openLetterBtn" class="action-pill-btn">
+                            <span id="letterBtnText">Open Your Letter 💌</span>
+                        </button>
+                    </div>
+
+                    <!-- Shinchan letter companion -->
+                    <div class="letter-shinchan-card glass-card">
+                        <img src="assets/shinchan-letter.png" alt="Shin-chan with Letter" class="shinchan-companion-img float-anim">
+                        <p class="shinchan-dialogue">"I made sure this letter has extra love and sweet wishes just for Prahasini! Hehehe~" 💌</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Hidden Surprise Messages 💖 -->
+            <section id="hiddenSurprisesSection" class="hub-section surprises-section">
+                <div class="section-header">
+                    <span class="badge-pill">✨ Interactive Surprises</span>
+                    <h3 class="section-heading">Tap Floating Tokens to Reveal Secret Wishes</h3>
+                    <p class="section-subheading">Every token holds a sweet birthday thought for Prahasini! 💖</p>
+                </div>
+
+                <div class="surprise-grid" id="surpriseGrid">
+                    <!-- Dynamic interactive surprise tokens injected via JS -->
+                </div>
+
+                <!-- Hidden message modal display -->
+                <div id="surpriseModal" class="surprise-modal hidden">
+                    <div class="surprise-modal-content glass-card pop-anim">
+                        <button id="closeModalBtn" class="close-modal-btn" aria-label="Close message">&times;</button>
+                        <div class="modal-icon" id="modalIcon">💖</div>
+                        <h4 class="modal-title" id="modalTitle">Secret Birthday Wish</h4>
+                        <p class="modal-message" id="modalMessage">You are truly special!</p>
+                        <div class="modal-sparkles">✨ 🎀 ✨</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 6: Balloon Mini Game 🎈 -->
+            <section id="balloonSection" class="hub-section balloon-section">
+                <div class="section-header">
+                    <span class="badge-pill">🎈 Birthday Mini Game</span>
+                    <h3 class="section-heading">Pop All The Balloons!</h3>
+                    <p class="section-subheading">Tap or click floating balloons to collect special birthday blessings.</p>
+                </div>
+
+                <div class="game-dashboard glass-card">
+                    <div class="game-stats">
+                        <div class="stat-box">
+                            <span class="stat-label">Balloons Popped</span>
+                            <span class="stat-value" id="poppedCount">0 / 8</span>
+                        </div>
+                        <div class="game-tip" id="gameTipText">
+                            🎯 Tap balloons to pop them!
+                        </div>
+                        <button id="resetBalloonsBtn" class="secondary-pill-btn">Reset Balloons 🎈</button>
+                    </div>
+
+                    <!-- Balloon Sky Arena -->
+                    <div class="balloon-arena" id="balloonArena">
+                        <!-- Interactive balloons dynamically injected -->
+                    </div>
+
+                    <!-- Shinchan Game Companion -->
+                    <div class="balloon-shinchan-bar">
+                        <img src="assets/shinchan-balloon.png" alt="Shin-chan Balloon" class="shinchan-game-img float-anim">
+                        <div class="game-speech-bubble" id="shinchanGameSpeech">
+                            "Yay! Help me pop all the balloons for Prahasini's surprise! 🎉"
+                        </div>
+                    </div>
+
+                    <!-- Victory Banner -->
+                    <div id="balloonVictoryBanner" class="victory-banner hidden glass-card pop-anim">
+                        <div class="victory-emoji">🎉 🎆 👑 💖</div>
+                        <h4 class="victory-title">You Found The Surprise! 🎉</h4>
+                        <p class="victory-desc">You popped all the balloons! Prahasini, you are an absolute champion! ✨</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Interactive 3D Birthday Cake 🎂 -->
+            <section id="cakeSection" class="hub-section cake-section">
+                <div class="section-header">
+                    <span class="badge-pill">🎂 Sweet Celebration</span>
+                    <h3 class="section-heading">Happy Birthday Prahasini ❤️</h3>
+                    <p class="section-subheading">Close your eyes, make a heartfelt wish, and blow out the candles!</p>
+                </div>
+
+                <div class="cake-display-layout">
+                    <!-- 3D Birthday Cake Container -->
+                    <div class="cake-container">
+                        <div class="cake-3d" id="cake3D">
+                            <!-- Cake Candles -->
+                            <div class="candles-row" id="candlesRow">
+                                <div class="candle">
+                                    <div class="flame" id="flame1"></div>
+                                    <div class="wick"></div>
+                                    <div class="candle-stick candle-pink"></div>
+                                </div>
+                                <div class="candle">
+                                    <div class="flame" id="flame2"></div>
+                                    <div class="wick"></div>
+                                    <div class="candle-stick candle-purple"></div>
+                                </div>
+                                <div class="candle center-candle">
+                                    <div class="flame" id="flame3"></div>
+                                    <div class="wick"></div>
+                                    <div class="candle-stick candle-gold"></div>
+                                </div>
+                                <div class="candle">
+                                    <div class="flame" id="flame4"></div>
+                                    <div class="wick"></div>
+                                    <div class="candle-stick candle-purple"></div>
+                                </div>
+                                <div class="candle">
+                                    <div class="flame" id="flame5"></div>
+                                    <div class="wick"></div>
+                                    <div class="candle-stick candle-pink"></div>
+                                </div>
+                            </div>
+
+                            <!-- Cake Layer 3 (Top) -->
+                            <div class="cake-tier tier-top">
+                                <div class="tier-frosting-drops">
+                                    <span>🍓</span><span>✨</span><span>🍓</span><span>✨</span><span>🍓</span>
+                                </div>
+                                <div class="tier-surface">
+                                    <span class="cake-name-icing">Prahasini ❤️</span>
+                                </div>
+                            </div>
+
+                            <!-- Cake Layer 2 (Middle) -->
+                            <div class="cake-tier tier-middle">
+                                <div class="cream-ribbon"></div>
+                            </div>
+
+                            <!-- Cake Layer 1 (Base) -->
+                            <div class="cake-tier tier-base">
+                                <div class="cake-pearls"></div>
+                            </div>
+
+                            <!-- Cake Stand -->
+                            <div class="cake-stand">
+                                <div class="stand-plate"></div>
+                                <div class="stand-pillar"></div>
+                                <div class="stand-base"></div>
+                            </div>
+                        </div>
+
+                        <!-- Make a Wish Action -->
+                        <div class="wish-action-area">
+                            <button id="makeWishBtn" class="glow-pulse-btn wish-btn">
+                                <span>Make a Wish 🎂</span>
+                            </button>
+                            <div id="wishMessageContainer" class="wish-message-container hidden">
+                                <p id="wishStep1" class="wish-step-text">Make a Wish... ✨</p>
+                                <p id="wishStep2" class="wish-step-text highlight-wish hidden">May it come true. ❤️</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shinchan Cake Companion -->
+                    <div class="cake-shinchan-card glass-card">
+                        <img src="assets/shinchan-cake.png" alt="Shin-chan with Birthday Cake" class="shinchan-companion-img float-anim">
+                        <p class="shinchan-dialogue">"Mmm, delicious cake for Prahasini! Don't forget to make your biggest wish! 🎂✨"</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 8: Shin-chan Birthday Celebration 🎀 -->
+            <section id="shinchanCelebrationSection" class="hub-section shinchan-party-section">
+                <div class="section-card glass-card shinchan-party-card">
+                    <div class="party-streamers-top">🎉 🎈 🎀 🥳 🎊 🎀 🎈 🎉</div>
+                    <h3 class="party-heading">Shin-chan came to celebrate with you! 🎉</h3>
+                    <div class="shinchan-stage">
+                        <img src="assets/shinchan-celebration.png" alt="Shin-chan Celebrating" class="shinchan-star-dancer dance-bounce-anim">
+                    </div>
+                    <h4 class="party-subheading romantic-gradient-text">Happy Birthday Prahasini ❤️</h4>
+                    <p class="party-quote">
+                        "Waku Waku! Wishing you non-stop laughs, infinite chocolates, great happiness, and the most unforgettable birthday ever!"
+                    </p>
+                </div>
+            </section>
+
+            <!-- Section 9: Final Surprise & Fireworks 🎆 -->
+            <section id="finaleSection" class="hub-section finale-section">
+                <div class="section-card glass-card finale-card">
+                    <div class="finale-crown">👑 ✨ 💖 ✨ 👑</div>
+                    <p class="finale-intro-tag">Once Again, Happy Birthday ❤️</p>
+                    <h2 class="finale-hero-name romantic-gradient-text glow-text" id="finalHeroName">Prahasini</h2>
+                    
+                    <div class="finale-message-box">
+                        <p id="finalMessageText" class="final-paragraph">
+                            May this new chapter of your life be filled with happiness, love, laughter, beautiful memories and countless magical moments. Keep shining and keep smiling. You deserve all the happiness in the world. ❤️✨
+                        </p>
+                    </div>
+
+                    <div class="finale-shinchan-row">
+                        <img src="assets/shinchan-birthday.png" alt="Shin-chan Cheer" class="shinchan-mini-cheer float-anim">
+                        <div class="fireworks-trigger-box">
+                            <button id="launchFireworksBtn" class="action-pill-btn fireworks-btn">
+                                <span>🎆 Launch Celebration Fireworks 🎆</span>
+                            </button>
+                        </div>
+                        <img src="assets/shinchan-surprise.png" alt="Shin-chan Hearts" class="shinchan-mini-cheer float-anim-reverse">
+                    </div>
+
+                    <!-- Section 10: Replay Surprise 🔄 -->
+                    <div class="replay-area">
+                        <button id="replaySurpriseBtn" class="replay-btn glow-pulse-btn">
+                            <span class="replay-icon">🔄</span>
+                            <span>Replay Surprise 🔄</span>
+                        </button>
+                        <p class="replay-note">Click anytime to relive the birthday magic from the very beginning!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="romantic-footer">
+                <p>Specially crafted with all my love for <strong class="romantic-gradient-text">Prahasini</strong> ❤️</p>
+                <p class="footer-sub">Happy Birthday! 🎂✨</p>
+            </footer>
+
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
